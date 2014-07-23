@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<watcher>
+  <data>
+    <path>C:\ProgramData\Intuit\QuickBooks 2011</path>
+    <filename>qbw.ini</filename>
+    <line>LASTUSERNAME=</line>
+    <replace>LASTUSERNAME=Admin</replace>
+  </data>
+  <data>
+    <path>C:\ProgramData\Intuit\QuickBooks 2012</path>
+    <filename>qbw.ini</filename>
+    <line>LASTUSERNAME=</line>
+    <replace>LASTUSERNAME=Admin</replace>
+  </data>
+  <data>
+    <path>C:\ProgramData\Intuit\QuickBooks 2013</path>
+    <filename>qbw.ini</filename>
+    <line>LASTUSERNAME=</line>
+    <replace>LASTUSERNAME=Admin</replace>
+  </data>
+  <data>
+    <path>C:\ProgramData\Intuit\QuickBooks 2014</path>
+    <filename>qbw.ini</filename>
+    <line>LASTUSERNAME=</line>
+    <replace>LASTUSERNAME=Admin</replace>
+  </data>
+</watcher>

@@ -1,6 +1,6 @@
 ﻿namespace QuickBooks_Monitor
 {
-    partial class Service1
+    partial class IniWatcher
     {
         /// <summary> 
         /// Required designer variable.

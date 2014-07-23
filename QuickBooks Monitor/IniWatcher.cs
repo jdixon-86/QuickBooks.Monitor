@@ -9,9 +9,9 @@ using System.Text;
 
 namespace QuickBooks_Monitor
 {
-    public partial class Service1 : ServiceBase
+    public partial class IniWatcher : ServiceBase
     {
-        public Service1()
+        public IniWatcher()
         {
             InitializeComponent();
         }

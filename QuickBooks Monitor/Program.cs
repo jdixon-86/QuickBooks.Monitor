@@ -16,7 +16,7 @@ namespace QuickBooks_Monitor
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new Service1() 
+                new IniWatcher() 
             };
             ServiceBase.Run(ServicesToRun);
         }

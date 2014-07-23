@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("QuickBooks Monitor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Monitors the QuickBooks INI file for LASTUSERNAME changes and resets it to default")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Know More IT")]
 [assembly: AssemblyProduct("QuickBooks Monitor")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2014 Know More IT")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
