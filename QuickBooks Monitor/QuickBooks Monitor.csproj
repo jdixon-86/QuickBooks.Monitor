@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="config\StaticSettings.cs" />
+    <Compile Include="StaticSettings.cs" />
     <Compile Include="IniWatcher.cs">
       <SubType>Component</SubType>
     </Compile>
