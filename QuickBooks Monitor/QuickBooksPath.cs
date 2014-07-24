@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QuickBooks_Monitor
 {
-    public class QuickBooksPaths
+    public class QuickBooksPath
     {
         public string Path { get; set; }
 

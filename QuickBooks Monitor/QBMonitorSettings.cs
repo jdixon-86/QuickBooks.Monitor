@@ -12,7 +12,7 @@ namespace QuickBooks_Monitor
         {
             _paths = doc.Element("watcher").Elements("data").Select(e =>
                 {
-                    return new QuickBooksPaths
+                    return new QuickBooksPath
                         {
                             Path = e.Element("path").Value,
                             Filename = e.Element("filename").Value,
@@ -23,6 +23,6 @@ namespace QuickBooks_Monitor
                 .ToList();
         }
 
-        private readonly IEnumerable<QuickBooksPaths> _paths;
+        private readonly IEnumerable<QuickBooksPath> _paths;
     }
 }
