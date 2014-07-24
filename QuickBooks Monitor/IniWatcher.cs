@@ -14,6 +14,7 @@ namespace QuickBooks_Monitor
         public IniWatcher()
         {
             InitializeComponent();
+            ServiceName = "Quickbooks Monitor";
         }
 
         protected override void OnStart(string[] args)
