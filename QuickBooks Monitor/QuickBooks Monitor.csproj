@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StaticSettings.cs" />
+    <Compile Include="QBMonitorSettings.cs" />
     <Compile Include="IniWatcher.cs">
       <SubType>Component</SubType>
     </Compile>
