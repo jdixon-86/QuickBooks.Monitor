@@ -19,7 +19,7 @@ namespace QuickBooks_Monitor
                 ReplaceWith = defaultElement.Element("replace").Value,
             };
 
-            _paths = doc.Element("watcher").Elements("data").Select(e =>
+            Instances = doc.Element("watcher").Elements("data").Select(e =>
                 {
                     return new QuickBooksPath
                         {
@@ -32,7 +32,7 @@ namespace QuickBooks_Monitor
                 .ToList();
         }
 
-        private readonly IEnumerable<QuickBooksPath> _paths;
+        public IEnumerable<QuickBooksPath> Instances { get; private set; }
     }
 
     public static class XContainerMixins
