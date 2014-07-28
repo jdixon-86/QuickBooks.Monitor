@@ -25,7 +25,7 @@ namespace FileStateEnforcer
             };
         }
 
-        public void Begin()
+        public void Begin(Action action = null)
         {
             var workerThread = new Thread((object obj) =>
                 {
@@ -39,6 +39,8 @@ namespace FileStateEnforcer
                         File.WriteAllLines(
                             fileInfo.FullPath,
                             oldText.Select(x => x.Contains(fileInfo.Search) ? fileInfo.Rule.Trim() : x));
+
+                        if (action != null) action();
                     }
                 })
                 { IsBackground = true, };
