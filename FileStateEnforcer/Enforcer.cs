@@ -31,13 +31,29 @@ namespace FileStateEnforcer
                     var token = (CancellationToken)obj;
                     while (!token.IsCancellationRequested)
                     {
-                        var fileInfo = _fileChanges.Take();
+                        var fileInfo = _fileChanges.Take(token);
 
-                        var oldText = File.ReadAllLines(fileInfo.FullPath);
+                        for (int i = 0; i < 100; i++)
+                        {
+                            try
+                            {
+                                var oldText = File.ReadAllLines(fileInfo.FullPath);
 
-                        File.WriteAllLines(
-                            fileInfo.FullPath,
-                            oldText.Select(x => x.Contains(fileInfo.Search) ? fileInfo.Rule.Trim() : x));
+                                lock (_watcher)
+                                {
+                                    bool originallyEnabled = _watcher.EnableRaisingEvents;
+                                    _watcher.EnableRaisingEvents = false;
+                                    File.WriteAllLines(
+                                        fileInfo.FullPath,
+                                        oldText.Select(x => x.Contains(fileInfo.Search) ? fileInfo.Rule.Trim() : x));
+                                    _watcher.EnableRaisingEvents = true && originallyEnabled;
+                                }
+                            }
+                            catch (IOException)
+                            {
+                                Thread.Sleep(50);
+                            }
+                        }
 
                         if (action != null) action();
                     }
