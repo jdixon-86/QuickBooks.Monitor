@@ -15,10 +15,9 @@ namespace FileStateEnforcer
         {
             _rule = rule;
 
-            var filename = Path.GetFileName(_rule.FullPath);
+            var filename = _rule.Filename;
 
             _watcher = new FileSystemWatcher(_rule.Directory, _rule.Filename);
-            _watcher.BeginInit();
             _watcher.Changed += (o, e) =>
             {
                 _fileChanges.Add(_rule);
