@@ -62,13 +62,20 @@ namespace FileStateEnforcer
 
             workerThread.Start(_tokenSource.Token);
 
-            _watcher.EnableRaisingEvents = true;
+            lock (_watcher)
+                _watcher.EnableRaisingEvents = true;
         }
 
         public void End()
         {
+            End(false);
+        }
+
+        private void End(bool disposing)
+        {
             _tokenSource.Cancel();
-            _watcher.EnableRaisingEvents = false;
+            lock (disposing ? new Object() : _watcher)
+                _watcher.EnableRaisingEvents = false;
         }
 
         private readonly LineRule _rule;
@@ -80,7 +87,7 @@ namespace FileStateEnforcer
 
         public void Dispose()
         {
-            End();
+            End(true);
             _tokenSource.Dispose();
             _watcher.Dispose();
         }
