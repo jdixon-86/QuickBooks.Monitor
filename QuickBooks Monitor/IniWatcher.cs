@@ -10,6 +10,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Xml.Linq;
+using FileStateEnforcer;
 
 namespace QuickBooks_Monitor
 {
@@ -19,22 +20,6 @@ namespace QuickBooks_Monitor
         {
             InitializeComponent();
             ServiceName = "Quickbooks Monitor";
-            var fileChangerWorker = new Thread(() =>
-                {
-                    for (;;)
-                    {
-                        var fileInfo = _changedFiles.Take();
-
-                        var oldText = File.ReadAllLines(fileInfo.FullPath);
-
-                        File.WriteAllLines(
-                            fileInfo.FullPath,
-                            oldText.Select(x => x.Trim() == fileInfo.LookFor ? fileInfo.ReplaceWith.Trim() : x));
-                    }
-                })
-                { IsBackground = true, };
-
-            fileChangerWorker.Start();
         }
 
         protected override void OnStart(string[] args)
@@ -43,36 +28,22 @@ namespace QuickBooks_Monitor
                 "{0}/config.xml",
                 System.Reflection.Assembly.GetEntryAssembly().Location);
 
-            var settings = new QBMonitorSettings(XDocument.Load(configPath));
+            var settings = Settings.ImportSettings(XDocument.Load(configPath));
 
-            _watchers.AddRange(settings.Instances.Select(x =>
-                {
-                    var filename = Path.GetFileName(x.FullPath);
+            _enforcers.AddRange(settings.Select(x => new Enforcer(x)));
 
-                    return new FileSystemWatcher(x.Path, x.Filename);
-                }));
-
-            foreach (var item in _watchers.Zip(settings.Instances, (x, y) => new { Watcher = x, Settings = y }))
-            {
-                item.Watcher.BeginInit();
-                item.Watcher.Changed += (o, e) =>
-                    {
-                        _changedFiles.Add(item.Settings);
-                    };
-
-                item.Watcher.EnableRaisingEvents = true;
-            }
+            foreach (var enforcer in _enforcers)
+                enforcer.Begin();
         }
 
         protected override void OnStop()
         {
-            foreach (var watcher in _watchers)
-                watcher.Dispose();
+            foreach (var enforcer in _enforcers)
+                enforcer.Dispose();
 
-            _watchers.Clear();
+            _enforcers.Clear();
         }
 
-        private List<FileSystemWatcher> _watchers = new List<FileSystemWatcher>();
-        private BlockingCollection<QuickBooksPath> _changedFiles = new BlockingCollection<QuickBooksPath>();
+        private List<Enforcer> _enforcers = new List<Enforcer>();
     }
 }

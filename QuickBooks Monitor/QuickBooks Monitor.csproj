@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QBMonitorSettings.cs" />
     <Compile Include="IniWatcher.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -55,9 +54,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuickBooksPath.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FileStateEnforcer\FileStateEnforcer.csproj">
+      <Project>{dbe4de33-2faf-4a27-9e40-82fb55c390dd}</Project>
+      <Name>FileStateEnforcer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="config\config.xml" />
   </ItemGroup>
