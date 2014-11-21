@@ -13,12 +13,7 @@ namespace QuickBooks_Monitor
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new IniWatcher() 
-            };
-            ServiceBase.Run(ServicesToRun);
+            ServiceBase.Run(new[] { new IniWatcher() });
         }
     }
 }
